@@ -36,7 +36,7 @@ plot_label <- function(data, FCvalue, FDRsig, FDRplot, direction){
       # to only display above certain FDRplot
       data_tmp$Protein_label_select[i] <- 
         ifelse(data_tmp$adj.pvalue[i] < FDRplot & #adj.pvalue cutoff here
-               abs(data_tmp$log2FC)[i] > FCvalue, #both +/- FC
+               abs(data_tmp$log2FC[i]) > FCvalue, #both +/- FC
                data_tmp$`Gene Symbol`[i], NA)
     }
     return(data_tmp)} 
@@ -55,9 +55,9 @@ plot_label <- function(data, FCvalue, FDRsig, FDRplot, direction){
       # to only display certain foldchange (both + and -)
       # to only display above certain FDRplot
       data_tmp$Protein_label_select[i] <- 
-        ifelse(data_tmp$adj.pvalue[i] < FDRplot & #adj.pvalue cutoff here
-                 abs(data_tmp$log2FC)[i] > FCvalue, #both +/- FC
-               data_tmp$`Gene Symbol`[i], NA)
+        ifelse((data_tmp$adj.pvalue[i] < FDRplot) &      #adj.pvalue cutoff here
+                 (abs(data_tmp$log2FC[i]) > FCvalue),    #both +/- FC
+               data_tmp$`Protein_label`[i], NA)
     }    
     return(data_tmp)
   }
@@ -77,8 +77,8 @@ plot_label <- function(data, FCvalue, FDRsig, FDRplot, direction){
       # to only display above certain FDRplot
       data_tmp$Protein_label_select[i] <- 
         ifelse(data_tmp$adj.pvalue[i] < FDRplot & #adj.pvalue cutoff here
-                 abs(data_tmp$log2FC)[i] > FCvalue, #both +/- FC
-               data_tmp$`Gene Symbol`[i], NA)
+                 abs(data_tmp$log2FC[i]) > FCvalue, #both +/- FC
+               data_tmp$`Protein_select`[i], NA)
     }    
     return(data_tmp)
   }
