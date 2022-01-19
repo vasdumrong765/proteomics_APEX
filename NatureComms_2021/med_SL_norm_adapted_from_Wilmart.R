@@ -41,3 +41,27 @@ SL_Norm <- function(df, color = NULL, plot = FALSE) {
   }
   df_sl
 }
+
+
+# median subtraction
+med_subtraction <- function(df, print_factors = TRUE) {
+  
+  # compute global and column medians
+  median_log2Int <- colMedians(as.matrix(df), na.rm = TRUE)
+  median_global <- median(median_log2Int)
+  median_diff <- median_global - median_log2Int 
+
+  for (i in seq(1,num_cols)){
+    df[,i] <- df[,i] + median_diff[i]
+  }
+  
+  # print the normalization factors for QC check
+  if (print_factors == TRUE) {
+    cat("\nMedian Normalization Factors:\n ")
+    cat(sprintf("%s : %0.3f\n", colnames(df), median_diff))}
+  
+  return(df)
+}
+
+
+
