@@ -50,7 +50,9 @@ med_subtraction <- function(df, print_factors = TRUE) {
   median_log2Int <- colMedians(as.matrix(df), na.rm = TRUE)
   median_global <- median(median_log2Int)
   median_diff <- median_global - median_log2Int 
-
+  
+  num_cols <- dim(df)[2]
+  
   for (i in seq(1,num_cols)){
     df[,i] <- df[,i] + median_diff[i]
   }
